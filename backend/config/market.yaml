@@ -1,0 +1,12 @@
+postgres:
+    database: greenfood
+    user: postgres
+    password: postgres
+    host: localhost
+    port: 5432
+    minsize: 1
+    maxsize: 5
+auth:
+    extra: awmYJuaFCh
+deploy: false
+email: pokhila.andrey@gmail.com

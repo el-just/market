@@ -1,0 +1,80 @@
+stages:
+    - build
+    - test
+    - deploy
+
+frontend:
+    stage: build
+    script:
+        - cd frontend && yarn && yarn build
+        - >-
+            docker image build -t 
+            cr.yandex/crpn29pj78m9nr559c1h/market_frontend:0.1 .
+        - docker push cr.yandex/crpn29pj78m9nr559c1h/market_frontend:0.1
+
+frontend_dev:
+    stage: build
+    script:
+        - cd frontend/dev
+        - >-
+            docker image build -t 
+            cr.yandex/crpn29pj78m9nr559c1h/market_frontend_dev:1.0 .
+        - docker push cr.yandex/crpn29pj78m9nr559c1h/market_frontend_dev:1.0
+
+backend:
+    stage: build
+    script:
+        - cd backend
+        - >-
+            docker image build -t 
+            cr.yandex/crpn29pj78m9nr559c1h/market_backend:0.1 .
+        - docker push cr.yandex/crpn29pj78m9nr559c1h/market_backend:0.1
+
+test:
+    stage: test
+    script:
+        - echo "testing"
+
+deploy:
+    stage: deploy
+    only:
+        - master
+    script:
+        - >-
+            printf "#!/bin/bash\n
+            export MARKET_YC_ID=$MARKET_YC_ID\n
+            export MARKET_YC_KEY=$MARKET_YC_KEY\n
+            export MARKET_YC_BUCKET=$MARKET_YC_BUCKET\n
+            export MARKET_MAIL_ACCOUNT=$MARKET_MAIL_ACCOUNT\n
+            export MARKET_MAIL_PASSWORD=$MARKET_MAIL_PASSWORD\n
+            export MARKET_SMS_LOGIN=$MARKET_SMS_LOGIN\n
+            export MARKET_SMS_PASSWORD=$MARKET_SMS_PASSWORD\n
+            export MARKET_TELEGRAM_KEY=$MARKET_TELEGRAM_KEY\n
+            export MARKET_ADDRESS_SUGGEST_KEY=$MARKET_ADDRESS_SUGGEST_KEY\n
+            export MARKET_POSTGRES_PASSWORD=$MARKET_POSTGRES_PASSWORD\n
+            export MARKET_POSTGRES_DB=$MARKET_POSTGRES_DB" | tee env.sh
+        - scp env.sh $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP:~/env.sh
+        - >-
+            scp custom.conf 
+            $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP:~/custom.conf
+        - >-
+            scp docker-compose.prod.yaml 
+            $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP:~/docker-compose.yaml
+        - >-
+            ssh -o stricthostkeychecking=no 
+            $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP 
+            'source env.sh; docker-compose down'
+        - >-
+            ssh -o stricthostkeychecking=no 
+            $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP 
+            'yc container registry configure-docker;
+            docker pull cr.yandex/crpn29pj78m9nr559c1h/market_backend:0.1'
+        - >-
+            ssh -o stricthostkeychecking=no 
+            $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP 
+            'yc container registry configure-docker;
+            docker pull cr.yandex/crpn29pj78m9nr559c1h/market_frontend:0.1'
+        - >-
+            ssh -o stricthostkeychecking=no 
+            $MARKET_YC_SERVICE_USER@$MARKET_YC_SERVICE_IP 
+            'source env.sh; docker-compose up -d'
