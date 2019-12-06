@@ -393,7 +393,7 @@ export default {
         },
 
         serviceEnabled () {
-            return window.serviceEnabled || this.stage === 'production'
+            return window.location.search === '?debug' || this.stage === 'production'
         }
     },
     watch: {
