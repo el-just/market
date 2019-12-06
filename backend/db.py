@@ -4,6 +4,17 @@ import enum
 
 metadata = sa.MetaData()
 
+settings = sa.Table(
+    'settings', metadata,
+
+    sa.Column('id', sa.Integer, nullable=False,),
+    sa.Column('name', sa.String(256),),
+    sa.Column('value', sa.String(256),),
+
+    # indices
+    sa.PrimaryKeyConstraint('id', name='setting_pkey',),
+)
+
 entities = sa.Table(
     'entities', metadata,
 

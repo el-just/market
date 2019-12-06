@@ -26,6 +26,7 @@
 
 #install yc
     curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+    sudo cp -R yandex-cloud/bin/* /usr/local/bin
 
     # yc init
     # yc container registry configure-docker

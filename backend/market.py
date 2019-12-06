@@ -13,6 +13,12 @@ class Market:
         self.request = request
         self.conn = conn
 
+    async def info(self):
+        stage = await self.conn.scalar(
+                select([db.settings.c.value]).where(
+                    db.settings.c.name == 'stage'))
+
+        return {"stage":stage}
 
     async def list(self, category=None, paused=False,
                    search_text=None):

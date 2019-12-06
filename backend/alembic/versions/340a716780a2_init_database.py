@@ -16,6 +16,17 @@ branch_labels = None
 depends_on = None
 
 def upgrade():
+    settings = op.create_table(
+        'settings',
+
+        sa.Column('id', sa.Integer, nullable=False,),
+        sa.Column('name', sa.String(256),),
+        sa.Column('value', sa.String(256),),
+
+        # indices
+        sa.PrimaryKeyConstraint('id', name='setting_pkey',),
+    )
+
     entities = op.create_table(
         'entities',
 

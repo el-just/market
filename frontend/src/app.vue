@@ -1,6 +1,7 @@
 <template>
 <v-app
         v-scroll="onScroll"
+        v-show="serviceEnabled"
         >
     <v-toolbar app flat fixed clipped-right
             :dense="true"
@@ -248,6 +249,19 @@ export default {
             })
             .catch(exp => {
                 console.error(exp)});
+        fetch('/api/market/info', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                return response.json()
+            })
+            .then(result => {
+                this.stage = result.stage
+            })
     },
     destroyed () {
         // delete this.$options.sockets.onmessage
@@ -376,6 +390,10 @@ export default {
                     this.toolbarConfig.marketInfoShortWidth &&
                         !this.forceSearch )
             )
+        },
+
+        serviceEnabled () {
+            return window.serviceEnabled || this.stage === 'production'
         }
     },
     watch: {

@@ -62,6 +62,13 @@ class DB_init:
                             weight=0,
                             ).returning(db.orders.c.id))
 
+    async def settings(self)
+        await self.conn.scalar(
+                db.settings.insert().values(
+                    name="stage",
+                    value="testing",
+                    ).returning(db.settings.c.id))
+
 async def go(args):
     async with create_engine(
             user='postgres',
@@ -77,6 +84,7 @@ async def go(args):
                     password=args[1] if len(args) > 1 else None,
                     )
             await db_init.generate_orders()
+            await db_init.settings()
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
