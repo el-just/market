@@ -304,13 +304,13 @@
                     <template v-slot:item="{ item }">
                         <v-icon
                                 style="magrin-left: 12px; margin-right: 8px"
-                                v-if="item !== paymentTypeItems[1]"
+                                v-if="item === paymentTypeItems[1]"
                                 width="20"
                                 height="20"
                                 >credit_card</v-icon>
                         <v-icon
                                 style="magrin-left: 12px; margin-right: 8px"
-                                v-if="item === paymentTypeItems[1]"
+                                v-if="item !== paymentTypeItems[1]"
                                 width="20"
                                 height="20"
                                 >money</v-icon>
@@ -319,13 +319,13 @@
                     <template v-slot:selection="{ item }">
                         <v-icon
                                 style="magrin-left: 12px; margin-right: 8px"
-                                v-if="item !== paymentTypeItems[1]"
+                                v-if="item === paymentTypeItems[1]"
                                 width="20"
                                 height="20"
                                 >credit_card</v-icon>
                         <v-icon
                                 style="magrin-left: 12px; margin-right: 8px"
-                                v-if="item === paymentTypeItems[1]"
+                                v-if="item !== paymentTypeItems[1]"
                                 width="20"
                                 height="20"
                                 >money</v-icon>
@@ -455,7 +455,7 @@ export default {
             deliveryBottomBlur: null,
             intervalSelectorMenu: false,
 
-            changeShowed: false,
+            changeShowed: true,
 
             rules: {
                 required: text => v => !!v || text,
@@ -888,7 +888,7 @@ export default {
         },
 
         paymentType () {
-            this.changeShowed = this.paymentType === this.paymentTypeItems[1] ?
+            this.changeShowed = this.paymentType === this.paymentTypeItems[0] ?
                                 true : false
             this.changeFrom = this.changeFrom ? null : this.changeFrom
         },

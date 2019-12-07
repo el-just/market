@@ -17,7 +17,7 @@ export default {
         personEmail: undefined,
         deliveryDate: undefined,
         deliveryInterval: 'с 12:00 до 15:00',
-        paymentType: 'Картой курьеру',
+        paymentType: 'Наличными',
         changeFrom: undefined,
         extraFlags: [],
         specialInstructions: undefined,
@@ -29,8 +29,8 @@ export default {
             'с 18:00 до 21:00',
             ],
         paymentTypeItems: [
-            'Картой курьеру',
-            'Наличными'
+            'Наличными',
+            'Перевод на Сбербанк курьеру',
         ],
 
         items: [],
