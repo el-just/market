@@ -25,12 +25,12 @@
                     <div style="float:left">
                         <router-link to="/"
                                 style="text-decoration: none; color: black;
-                                       margin-left: 22px;
-                                       font-size: 24px;"
-                                >Veggies</router-link>
+                                       margin-left: 4px;
+                                       font-size: 26px;"
+                                >VEGGIES</router-link>
                         <div v-if="marketInfoWidth ===
                                        this.toolbarConfig.marketInfoShortWidth"
-                                style="margin: -6px 11px 4px 11px;">
+                                style="margin: -8px 3px 4px">
                             Санкт-Петербург
                         </div>
                     </div>
@@ -249,7 +249,7 @@ export default {
             })
             .catch(exp => {
                 console.error(exp)});
-        fetch('/api/market/info', {
+        fetch('/api/market/get_stage', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -393,8 +393,18 @@ export default {
         },
 
         serviceEnabled () {
-            return window.location.search === '?debug' || this.stage === 'production'
-        }
+            return ( window.location.search === '?test'
+                    || this.stage === 'production' )
+        },
+
+        stage: {
+            get () {
+                return this.$store.state.stage
+            },
+            set (value) {
+                this.$store.commit('setStage', value)
+            },
+        },
     },
     watch: {
         searchTextLink () {

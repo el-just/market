@@ -13,12 +13,14 @@ class Market:
         self.request = request
         self.conn = conn
 
-    async def info(self):
+    async def get_stage(self):
         stage = await self.conn.scalar(
                 select([db.settings.c.value]).where(
                     db.settings.c.name == 'stage'))
 
         return {"stage":stage}
+
+    async def set_stage(self, stage):
 
     async def list(self, category=None, paused=False,
                    search_text=None):
@@ -29,7 +31,9 @@ class Market:
             ["'овощи'"],
             ["'зелень'"],
             ["'грибы'"],
-            ["'орехи'", "'крупы'"],
+            ["'специи'"],
+            ["'орехи'", "'семена'"],
+            #["'крупы'"],
         ]
         labels_query = "labels.name in (%s)"%','.join(categories[category]) \
                 if categories[category] is not None and search_text is None \

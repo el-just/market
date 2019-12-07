@@ -21,6 +21,7 @@ export default {
         },
         showMore: false,
         showNavigation: undefined,
+        stage: undefined,
     },
     mutations: {
         updateSearchText: (state, text) => {
@@ -37,6 +38,10 @@ export default {
 
         setShowNavigation: (state, value) => {
             state.showNavigation = value
+        },
+
+        setStage: (state, value) => {
+            state.stage = value
         },
     },
     actions: {

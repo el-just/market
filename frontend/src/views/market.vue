@@ -13,12 +13,6 @@
                     >
                 {{ categories[tabId-1] }}
             </v-btn>
-            <v-btn flat
-                    color="#ffa559"
-                    @click="setActiveTab(categories.length)"
-                    >
-                Сезонное
-            </v-btn>
         </v-layout>
         <v-layout>
             <v-flex xs-and-up12>
