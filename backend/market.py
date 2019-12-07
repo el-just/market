@@ -21,6 +21,9 @@ class Market:
         return {"stage":stage}
 
     async def set_stage(self, stage):
+        await self.conn.execute(db.settings.update().where(
+                db.settings.c.name == 'stage').values(
+                    value=stage,))
 
     async def list(self, category=None, paused=False,
                    search_text=None):

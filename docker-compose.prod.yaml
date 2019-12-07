@@ -31,7 +31,6 @@ services:
             - ./custom.conf:/etc/nginx/conf.d/default.conf
         ports:
             - "80:80"
-            - "443:443"
         depends_on:
             - backend
     redis:
