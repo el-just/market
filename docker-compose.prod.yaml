@@ -29,16 +29,14 @@ services:
         image: "cr.yandex/crpn29pj78m9nr559c1h/market_frontend:0.1"
         volumes:
             - ./custom.conf:/etc/nginx/conf.d/default.conf
+            - ./dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+            - /docker-volumes/etc/letsencrypt/live/veggies.market/fullchain.pem:/etc/letsencrypt/live/veggies.market/fullchain.pem
+            - /docker-volumes/etc/letsencrypt/live/veggies.market/privkey.pem:/etc/letsencrypt/live/veggies.market/privkey.pem
         ports:
             - "80:80"
             - "443:443"
         depends_on:
             - backend
-        environment:
-            - TZ=UTC
-            - LETSENCRYPT=true
-            - LE_EMAIL=veggies.market@yandex.ru
-            - LE_FQDN=veggies.market
     redis:
         image: "redis:5.0.6-alpine"
         ports:
