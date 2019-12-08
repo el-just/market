@@ -1,2 +1,2 @@
-FROM "nginx:1.17.5-alpine"
+FROM "umputun/nginx-le:latest"
 COPY ./dist ./dist
