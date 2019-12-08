@@ -28,7 +28,6 @@ services:
     frontend:
         image: "cr.yandex/crpn29pj78m9nr559c1h/market_frontend:0.1"
         volumes:
-            - ./etc/ssl:/etc/nginx/ssl
             - ./custom.conf:/etc/nginx/conf.d/default.conf
         ports:
             - "80:80"
