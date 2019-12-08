@@ -44,15 +44,19 @@ export default {
         },
 
         load: _.debounce (({commit, state, rootState}) => {
-            fetch(`/api/market/list?category=${state.activeTab}`
-                    +`&search_text=${rootState.searchText
-                            ? rootState.searchText : ''}`, {method: 'GET'})
-                .then(response => {
-                    return response.json()})
-                .then(result => {
-                    commit('update', result)})
-                .catch(exp => {
-                    console.error(exp)});
+            fetch('/api/market/list', {
+                method: 'POST',
+                body: JSON.stringify({
+                    category: state.activeTab,
+                    search_text: rootState.searchText || null,
+                }),
+            })
+            .then(response => {
+                return response.json()})
+            .then(result => {
+                commit('update', result)})
+            .catch(exp => {
+                console.error(exp)});
         }, debounceInterval)
     },
     getters: {
