@@ -62,11 +62,11 @@ class DB_init:
                             weight=0,
                             ).returning(db.orders.c.id))
 
-    async def settings(self)
+    async def settings(self):
         await self.conn.scalar(
                 db.settings.insert().values(
                     name="stage",
-                    value="testing",
+                    value="test",
                     ).returning(db.settings.c.id))
 
 async def go(args):
