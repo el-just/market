@@ -34,9 +34,7 @@ class Market:
             ["'овощи'"],
             ["'зелень'"],
             ["'грибы'"],
-            ["'орехи'"],
-            ["'крупы'"],
-            ["'специи'"],
+            ["'сезонное'"],
         ]
         labels_query = "labels.name in (%s)"%','.join(categories[category]) \
                 if categories[category] is not None and search_text is None \
