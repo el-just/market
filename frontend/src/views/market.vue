@@ -10,6 +10,8 @@
                     :key="tabId"
                     :outline="activeTab === tabId-1"
                     @click="setActiveTab(tabId-1)"
+                    :color="tabId === categories.length
+                            ? 'rgb(251, 114, 0)' : ''"
                     >
                 {{ categories[tabId-1] }}
             </v-btn>
