@@ -26,8 +26,8 @@
                         <router-link to="/"
                                 style="text-decoration: none; color: black;
                                        margin-left: 8px;
-                                       font-size: 24px;"
-                                >VEGGIES</router-link>
+                                       font-size: 26px;"
+                                >Veggies</router-link>
                         <div v-if="marketInfoWidth ===
                                        this.toolbarConfig.marketInfoShortWidth"
                                 style="margin: -8px 3px 4px">
