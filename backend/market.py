@@ -33,7 +33,6 @@ class Market:
             ["'фрукты'", "'ягоды'"],
             ["'овощи'"],
             ["'зелень'"],
-            ["'грибы'"],
             ["'сезонное'"],
         ]
         labels_query = "labels.name in (%s)"%','.join(categories[category]) \
