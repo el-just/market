@@ -31,11 +31,13 @@ export default {
             entity_id: undefined,
             parent_id: undefined,
             is_node: undefined,
-            
+
             name: undefined,
             weight: undefined,
             price: undefined,
             count_type: 0,
+
+            priority: undefined,
         }
     },
 

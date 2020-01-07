@@ -164,6 +164,11 @@
 
                     v-model="formatModel.offer.count_type"
                     ></v-select>
+            <v-text-field
+                    label="Priority"
+                    v-model="formatModel.offer.priority"
+                    type="number"
+                    >
         </v-flex>
     </v-layout>
 </v-card>

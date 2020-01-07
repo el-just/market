@@ -210,6 +210,7 @@ def upgrade():
         sa.Column('weight', sa.Float,),
         sa.Column('price', sa.Float(precision=2),),
         sa.Column('count_type', sa.Integer),
+        sa.Column('priority', sa.Integer),
 
         # indices
         sa.PrimaryKeyConstraint('id', name='offer_pkey',),
