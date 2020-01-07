@@ -560,10 +560,10 @@ export default {
         },
 
         checkout () {
-            ym(56243326, 'reachGoal', 'checkoutRequested')
+            ym(56913685, 'reachGoal', 'checkoutRequested')
 
             if (this.validate()) {
-                ym(56243326, 'reachGoal', 'validationPassed')
+                ym(56913685, 'reachGoal', 'validationPassed')
                 this.dateValidationError = false
 
                 let timeout = false
@@ -600,7 +600,7 @@ export default {
                     } else {
                         this.createdOrder = result.data
                         this.clearCartItems()
-                        ym(56243326, 'reachGoal', 'orderCreated')
+                        ym(56913685, 'reachGoal', 'orderCreated')
                     }
 
                     if (timeout) {
