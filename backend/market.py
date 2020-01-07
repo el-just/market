@@ -155,7 +155,7 @@ class Market:
                         where
                             offers.parent_id = parent_offers.id
                         group by offers.id, entities.name, entities.declensions
-                        order by offers.weight nulls last
+                        order by offers.priority desc, offers.weight nulls last
                     ) y
                 ) as formats
                 %s
@@ -213,6 +213,7 @@ class Market:
                         "weight": format["weight"],
                         "price": format["price"],
                         "count_type": format["count_type"],
+                        "priority": format["priority"],
                     },
                     "entity": {
                         "id": format["entity_id"],
