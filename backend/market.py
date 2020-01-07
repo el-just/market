@@ -155,7 +155,7 @@ class Market:
                         where
                             offers.parent_id = parent_offers.id
                         group by offers.id, entities.name, entities.declensions
-                        order by offers.priority desc, offers.weight nulls last
+                        order by offers.priority, offers.weight nulls last
                     ) y
                 ) as formats
                 %s
