@@ -1054,10 +1054,11 @@ border_color_focused = #eae300
     color: rgba(0,0,0,0.54);
 
 .checkout
-    margin-top: 0
+    margin-top: 8px
     color:#344816 !important
     background-color: primary_yellow_color
     border: 1px solid border_color
+    margin-bottom: 22px
 
 .validation-error-text
     color: error_color_focused
