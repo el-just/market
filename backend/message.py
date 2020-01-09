@@ -34,7 +34,7 @@ class Message:
 
     async def send_email(self, text, subject):
         message = EmailMessage()
-        message["From"] = os.environ['MARKET_MAIL_ORG']
+        message["From"] = 'veggies-market@yandex.ru'
         message["To"] = os.environ['MARKET_MAIL_SUPPORT']
         message["Subject"] = subject
         message.set_content(text)
