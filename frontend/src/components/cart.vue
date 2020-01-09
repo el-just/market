@@ -365,6 +365,12 @@
                 @blur="validateEmail"
                 >
             </v-text-field>
+            <v-checkbox solo flat hide-details
+                    v-model="recallFlag"
+                    label="Перезвонить для подтверждения заказа"
+                    color="#eae300"
+                    class="font-weight-medium email-flag"
+                    ></v-checkbox>
         </div>
         <h3 class="cart-title subheading">Комментарии</h3>
         <v-textarea solo flat hide-details
@@ -877,6 +883,17 @@ export default {
                 if (!value) {
                     this.emailValidationClass = ''
                 }
+            },
+        },
+
+        recallFlag: {
+            get () {
+                return this.extraFlags[1]
+            },
+            set (value) {
+                let newFlags = this.extraFlags.slice()
+                newFlags[1] = value
+                this.extraFlags = newFlags
             },
         },
     },

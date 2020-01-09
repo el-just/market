@@ -19,7 +19,7 @@ export default {
         deliveryInterval: 'с 12:00 до 15:00',
         paymentType: 'Наличными',
         changeFrom: undefined,
-        extraFlags: [true],
+        extraFlags: [true, false],
         specialInstructions: undefined,
         acceptPolicy: undefined,
 
