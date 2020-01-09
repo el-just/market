@@ -30,8 +30,8 @@ class Order:
     ]
 
     payment_types = [
-        'Картой курьеру',
         'Наличными',
+        'Переводом на Сбербанк курьеру',
     ]
 
     def __init__(self, request=None, conn=None):
@@ -94,14 +94,14 @@ class Order:
                 and 'personEmail' in cart.keys() \
                 and cart['personEmail'] is not None \
                 and cart['personEmail'] != '':
-            try:
-                await self.send_email(
-                        utils.Email.order(cart, summary, order_id),
-                        "Заказ №%s"%str(order_id),
-                        cart['personEmail'],
-                        )
-            except Exception as e:
-                print(e)
+            #try:
+            await self.send_email(
+                    utils.Email.order(cart, summary, order_id),
+                    "Заказ №%s"%str(order_id),
+                    cart['personEmail'],
+                    )
+            #except Exception as e:
+            #    print(e)
 
         query = await self.conn.execute(
                 select([db.orders]).where(
