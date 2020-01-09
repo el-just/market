@@ -285,7 +285,7 @@ class Order:
                 validate_certs=False,
                 )
 
-    async def email_delivery_summary (self, delivery_date, email):
+    async def email_delivery_summary (self, delivery_date):
         config = get_config()
         summary = await self.summary(delivery_date)
         orders = await self.list(delivery_date)
