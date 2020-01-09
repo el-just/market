@@ -3,6 +3,9 @@ from datetime import date
 import db
 import telegram
 
+from email.mime.text import MIMEText
+from email.message import EmailMessage
+import aiosmtplib
 
 class Message:
     request = None
@@ -26,4 +29,22 @@ class Message:
            status=0,
            ).returning(db.messages.c.id))
 
-        await telegram.send('E-mail: %s\n%s'%(email, message))
+        await self.send_email(message, 'Message from %s'%email)
+
+
+    async def send_email(self, text, subject):
+        message = EmailMessage()
+        message["From"] = os.environ['MARKET_MAIL_ORG']
+        message["To"] = os.environ['MARKET_MAIL_SUPPORT']
+        message["Subject"] = subject
+        message.set_content(text)
+
+        await aiosmtplib.send(
+                message,
+                hostname="smtp.yandex.ru",
+                port=465,
+                username=os.environ['MARKET_MAIL_ORG'],
+                password=os.environ['MARKET_MAIL_ORG_PASSWORD'],
+                use_tls=True,
+                validate_certs=False,
+                )

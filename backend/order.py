@@ -269,8 +269,8 @@ class Order:
 
     async def send_email(self, html, subject, email):
         message = EmailMessage()
-        message["From"] = os.environ['MARKET_MAIL_ACCOUNT']
-        message["To"] = email
+        message["From"] = os.environ['MARKET_MAIL_SUPPORT']
+        message["To"] = '%s, %s'%(email, os.environ['MARKET_MAIL_SALES'])
         message["Subject"] = subject
 
         message.add_alternative(html, subtype='html')
@@ -279,8 +279,8 @@ class Order:
                 message,
                 hostname="smtp.yandex.ru",
                 port=465,
-                username=os.environ['MARKET_MAIL_ACCOUNT'],
-                password=os.environ['MARKET_MAIL_PASSWORD'],
+                username=os.environ['MARKET_MAIL_SUPPORT'],
+                password=os.environ['MARKET_MAIL_SUPPORT_PASSWORD'],
                 use_tls=True,
                 validate_certs=False,
                 )
@@ -290,10 +290,22 @@ class Order:
         summary = await self.summary(delivery_date)
         orders = await self.list(delivery_date)
 
-        await self.send_email(
-                utils.Email.delivery_summary(summary, orders, delivery_date),
-                "Доставка на %s"%str(delivery_date),
-                email,
+        html = utils.Email.delivery_summary(summary, orders, delivery_date),
+
+        message = EmailMessage()
+        message["From"] = os.environ['MARKET_MAIL_SALES']
+        message["To"] = os.environ['MARKET_MAIL_ORG']
+        message["Subject"] = "Delivery on %s"%str(delivery_date)
+        message.add_alternative(html, subtype='html')
+
+        await aiosmtplib.send(
+                message,
+                hostname="smtp.yandex.ru",
+                port=465,
+                username=os.environ['MARKET_MAIL_SALES'],
+                password=os.environ['MARKET_MAIL_SALES_PASSWORD'],
+                use_tls=True,
+                validate_certs=False,
                 )
 
     async def save_cart_state(self, cart):

@@ -145,7 +145,7 @@
                     </a>
                     <a
                             @click.stop="openContacts">
-                        Написать
+                        Контакты
                     </a>
                     <v-dialog
                             v-model="contactDialogShowed"

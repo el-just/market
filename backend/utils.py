@@ -115,7 +115,7 @@ class Email:
                             padding-bottom:12px;
                             padding-right:12px"
                         >
-                    © Market
+                    © Veggies
                 </td>
             </tr>
     </head>
@@ -269,8 +269,8 @@ class Email:
                 )
 
         return Email.template.format(
-                title='Market',
-                toolbar='Market',
+                title='Veggies',
+                toolbar='Veggies',
                 header='Заказ №%s'%order_id,
                 content=delivery_info+delivery_items,
                 )
@@ -278,8 +278,8 @@ class Email:
     @staticmethod
     def order_cancelled(order):
         return Email.template.format(
-                title='Market',
-                toolbar='Market',
+                title='Veggies',
+                toolbar='Veggies',
                 header='',
                 content='''
                 <table style="font-size: 14px">
@@ -414,8 +414,8 @@ class Email:
         '''%'\n'.join(order_items)
 
         return Email.template.format(
-                title='Market',
-                toolbar='Market',
+                title='Veggies',
+                toolbar='Veggies',
                 header='Доставка на %s'%str(delivery_date),
                 content=delivery_items+orders_info+orders,
                 )
