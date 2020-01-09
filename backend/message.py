@@ -1,7 +1,7 @@
 from datetime import date
 
 import db
-import telegram
+import os
 
 from email.mime.text import MIMEText
 from email.message import EmailMessage
