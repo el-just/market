@@ -34,7 +34,7 @@ class Message:
 
     async def send_email(self, text, subject):
         message = EmailMessage()
-        message["From"] = 'veggies-market@yandex.ru'
+        message["From"] = os.environ['MARKET_MAIL_ORG']
         message["To"] = os.environ['MARKET_MAIL_SUPPORT']
         message["Subject"] = subject
         message.set_content(text)
@@ -43,7 +43,7 @@ class Message:
                 message,
                 hostname="smtp.yandex.ru",
                 port=465,
-                username='veggies-market@yandex.ru',
+                username=os.environ['MARKET_MAIL_ORG'],
                 password=os.environ['MARKET_MAIL_ORG_PASSWORD'],
                 use_tls=True,
                 validate_certs=False,
