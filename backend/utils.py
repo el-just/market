@@ -51,8 +51,8 @@ class Email:
     ]
 
     payment_types = [
-        'Картой курьеру',
         'Наличными',
+        'Переводом на Сбербанк курьеру',
     ]
 
     market_name = "Veggies"
