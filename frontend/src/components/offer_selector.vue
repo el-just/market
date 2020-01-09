@@ -333,7 +333,7 @@ green_text_color = #151911
         font-size: 16px !important
         line-height: 18px
 
-        max-width: 64px;
+        max-width: 72px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: normal;

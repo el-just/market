@@ -7,7 +7,7 @@ export default {
     modules: {
     },
     state: {
-        activeTab: 3,
+        activeTab: 1,
         categories: [
             'Всё',
             'Фрукты и Ягоды',

@@ -937,7 +937,6 @@ border_color_focused = #eae300
 .input-field
 .input-field >>> .v-input__control
     min-height: 40px !important
-    height: 40px !important
 
 .person-phone
     background-color: white
