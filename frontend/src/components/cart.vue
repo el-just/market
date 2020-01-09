@@ -466,7 +466,6 @@ export default {
 
             policyValidationClass: '',
             emailValidationClass: '',
-            emailFlag: false,
             errorOnlyPolicies: false,
             orderDialogShowed: false,
             orderCreating: true,
@@ -865,6 +864,21 @@ export default {
                 this.$store.commit('setShowNavigation', value)
             },
         },
+
+        emailFlag: {
+            get () {
+                return this.extraFlags[0]
+            },
+            set (value) {
+                let newFlags = this.extraFlags.slice()
+                newFlags[0] = value
+                this.extraFlags = newFlags
+
+                if (!value) {
+                    this.emailValidationClass = ''
+                }
+            },
+        },
     },
     watch: {
         purePhone () {
@@ -891,16 +905,6 @@ export default {
             this.changeShowed = this.paymentType === this.paymentTypeItems[0] ?
                                 true : false
             this.changeFrom = this.changeFrom ? null : this.changeFrom
-        },
-
-        emailFlag () {
-            let newFlags = this.extraFlags.slice()
-            newFlags[0] = this.emailFlag
-            this.extraFlags = newFlags
-
-            if (!this.emailFlag) {
-                this.emailValidationClass = ''
-            }
         },
     },
 }
