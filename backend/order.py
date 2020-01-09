@@ -298,6 +298,7 @@ class Order:
         message["From"] = os.environ['MARKET_MAIL_SALES']
         message["To"] = os.environ['MARKET_MAIL_ORG']
         message["Subject"] = "Delivery on %s"%str(delivery_date)
+        raise Warning('%s / %s'%(str(type(html)), html))
         message.add_alternative(html, subtype='html')
 
         await aiosmtplib.send(

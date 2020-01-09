@@ -1,8 +1,8 @@
 <template>
     <v-container>
-		<v-flex ml-4 class="title">
-    		<router-link to="/admin">cd ..</router-link>
-		</v-flex>
+        <v-flex ml-4 class="title">
+            <router-link to="/admin">cd ..</router-link>
+        </v-flex>
         <v-menu lazy offset-y
                 v-model="datePickerMenu"
                 :close-on-content-click="false"
@@ -103,6 +103,9 @@
                                         Payment type: {{ 
                                             paymentTypeItems[
                                                 item.order.payment_type]}}
+                                    </div>
+                                    <div>
+                                        Extra: {{item.order.extra_flags}}
                                     </div>
                                 </v-flex>
                             </v-layout>
