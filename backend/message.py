@@ -43,7 +43,7 @@ class Message:
                 message,
                 hostname="smtp.yandex.ru",
                 port=465,
-                username=os.environ['MARKET_MAIL_ORG'],
+                username='veggies-market@yandex.ru',
                 password=os.environ['MARKET_MAIL_ORG_PASSWORD'],
                 use_tls=True,
                 validate_certs=False,
