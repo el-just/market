@@ -265,7 +265,7 @@ green_text_color = #151911
             font-size: 14px !important
             line-height: 16px
 
-            max-width: 58px;
+            max-width: 63px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
