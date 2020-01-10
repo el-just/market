@@ -53,6 +53,11 @@ class Order:
                     date_created=datetime.now(),
                     object='order',).returning(db.entities.c.id))
 
+        notify = len(cart['extraFlags']) > 0 \
+                and cart['extraFlags'][0] \
+                and 'personEmail' in cart.keys() \
+                and cart['personEmail'] is not None \
+                and cart['personEmail'] != ''
         order_id = await self.conn.scalar(
                 db.orders.insert().values(
                     entity_id=entity_id,
@@ -73,7 +78,7 @@ class Order:
                     extra_flags=cart['extraFlags'],
                     special_instructions=cart['specialInstructions'] if \
                             'specialInstructions' in cart.keys() else None,
-                    status=0,
+                    status=0 if notify is True else 1,
                     amount=summary['amount'],
                     weight=summary['weight'],
                     ).returning(db.orders.c.id))
@@ -92,18 +97,18 @@ class Order:
                 "multiplier": item["count"],
                 } for item in cart["items"]])
 
-        if len(cart['extraFlags']) > 0 and cart['extraFlags'][0] \
-                and 'personEmail' in cart.keys() \
-                and cart['personEmail'] is not None \
-                and cart['personEmail'] != '':
-            #try:
-            await self.send_email(
-                    utils.Email.order(cart, summary, order_id),
-                    "Заказ №%s"%str(order_id),
-                    cart['personEmail'],
-                    )
-            #except Exception as e:
-            #    print(e)
+        if notify:
+            try:
+                await self.send_email(
+                        utils.Email.order(cart, summary, order_id),
+                        "Заказ №%s"%str(order_id),
+                        cart['personEmail'],
+                        )
+                await self.conn.execute(db.orders.update().where(
+                        db.orders.c.id == order_id).values(
+                            status=1))
+            except Exception as e:
+                print(e)
 
         query = await self.conn.execute(
                 select([db.orders]).where(
