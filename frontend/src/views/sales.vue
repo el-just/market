@@ -51,6 +51,9 @@
                 Summary
             </v-tab>
             <v-tab-item>
+                <div>
+                    Orders with bad status: {{ badOrders}}
+                </div>
                 <v-data-iterator
                         :items="orders"
                         content-tag="v-layout"
@@ -205,7 +208,6 @@ export default {
             })
             .catch(exp => {
                 console.log(exp)});
-            
         },
 
         sendEmail () {
@@ -252,12 +254,29 @@ export default {
         totalPositions () {
             return this.offers.length
         },
+
+        badOrders () {
+            return this.orders.reduce ((result, model)=>{
+                if (model.order.status !== 1) {
+                    result.push(model.order.id)
+                }
+                return result
+            }, []).join(', ')
+        },
     },
 
     watch: {
         activeTab () {
             if (this.activeTab === 1) {
                 this.loadSummary()
+            }
+        },
+
+        deliveryDate () {
+            if (this.activeTab === 1) {
+                this.loadSummary()
+            } else {
+                this.loadOrders()
             }
         }
     },
