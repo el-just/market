@@ -26,6 +26,7 @@
                         :rows-per-page-items="rowsPerPageItems"
                         content-tag="v-layout"
                         :total-items="total"
+                        no-data-text=""
                         >
                     <template v-slot:item="{ item }">
                         <v-flex
@@ -60,7 +61,17 @@ export default {
     },
 
     created () {
-        this.load ()
+        let params = window.location.search.substring(1).split('&').reduce(
+            (result, item) => {
+                result[item.split('=')[0]] = item.split('=')[1] || null
+                return result
+        }, {})
+
+        if (params['category']) {
+            this.setActiveTab(parseInt(params['category'], 10))
+        } else {
+            this.load ()
+        }
     },
     destroyed () {
     },

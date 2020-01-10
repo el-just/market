@@ -393,7 +393,13 @@ export default {
         },
 
         serviceEnabled () {
-            return ( window.location.search === '?test'
+            let params = window.location.search.substring(1).split('&').reduce(
+                (result, item) => {
+                    result[item.split('=')[0]] = item.split('=')[1] || null
+                    return result
+            }, {})
+
+            return ( params['test'] !== undefined
                     || this.stage === 'production' )
         },
 
