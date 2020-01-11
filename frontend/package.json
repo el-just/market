@@ -11,6 +11,7 @@
     "element-ui": "^2.10.1",
     "lodash": "^4.17.11",
     "nib": "^1.1.2",
+    "prerender-spa-plugin": "^3.4.0",
     "vue": "^2.5.22",
     "vue-fragment": "^1.5.1",
     "vue-lodash": "^2.0.2",
