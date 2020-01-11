@@ -169,6 +169,7 @@
                     v-model="formatModel.offer.priority"
                     type="number"
                     >
+            </v-text-field>
         </v-flex>
     </v-layout>
 </v-card>
