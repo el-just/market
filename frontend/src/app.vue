@@ -3,6 +3,28 @@
         v-scroll="onScroll"
         v-show="serviceEnabled"
         >
+    <div
+            class="schema-org"
+            itemscope itemtype="http://schema.org/GroceryStore"
+            >
+        <meta itemprop="name" content="Veggies | Санкт-Петербург"/>
+        <div
+                itemprop="address"
+                itemscope itemtype="http://schema.org/PostalAddress">
+            <meta itemprop="streetAddress" /n>
+            <meta itemprop="postalCode" />
+            <meta itemprop="addressLocality" content="Санкт-Петербург" />
+        </div>
+        <meta itemprop="telephone" content />
+        <meta itemprop="email" content="support@veggies.market" />
+        <time
+                itemprop="openingHours"
+                datetime="Mo-Su">С понедельника по воскресенье, круглосуточно
+        </time>
+        <meta itemprop="currenciesAccepted" content="RUB" />
+        <meta itemprop=paymentAccepted"
+                    content="Наличными, Банковской картой" />
+    </div>
     <v-toolbar app flat fixed clipped-right
             :dense="true"
             :class="[
@@ -423,6 +445,9 @@ export default {
 secondary_background_color = #fffff5
 primary_green_color = #e2ffbc
 primary_yellow_color = #fffdbc
+
+.schema-org
+    display: none
 
 .buttons-container
     min-width: 136px

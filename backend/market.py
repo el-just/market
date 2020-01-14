@@ -26,7 +26,7 @@ class Market:
                     value=stage,))
 
     async def list(self, category=None, paused=False,
-                   search_text=None):
+                   search_text=None, offer_id=None):
         category = int(category) if category is not None else 0
         categories = [
             None,
@@ -68,6 +68,9 @@ class Market:
                         else ''
         search_query = search_query + ' and entities.paused is not True' \
                 if paused is False else search_query
+
+        offer_query = "and offers.id = %s "%offer_id \
+                if offer_id is not None else ''
 
         search_params = {"search_text":search_text} if search_text is not None \
                         else {}
@@ -118,6 +121,7 @@ class Market:
                 where
                     prdcts.id in (select prdcts.id from prdcts)
                     %s
+                    %s
                 group by
                     offers.id
                     , entities.name
@@ -161,7 +165,7 @@ class Market:
                 %s
             from parent_offers
             order by %s parent_offers.name
-        '''%(labels_query, labels_sort_query, search_query,
+        '''%(labels_query, labels_sort_query, search_query, offer_query,
                 labels_sort_field, labels_sort)
 
         data = await self.conn.execute(text(query), search_params)

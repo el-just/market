@@ -38,6 +38,13 @@
                 </v-data-iterator>
             </v-flex>
         </v-layout>
+        <v-dialog
+                content-class="offer-dialog"
+                v-model="offerDialogShowed"
+                >
+            <offer-card
+                    :model="offerModel"></offer-card>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -67,6 +74,10 @@ export default {
                 return result
         }, {})
 
+        if (params['offer']) {
+            this.setActiveOffer(parseInt(params['offer']))
+        }
+
         if (params['category']) {
             this.setActiveTab(parseInt(params['category'], 10))
         } else {
@@ -78,6 +89,7 @@ export default {
 
     methods: {
         ...mapActions('market', [
+            'setActiveOffer',
             'setActiveTab',
             'load',
         ]),
@@ -98,6 +110,8 @@ export default {
             'items',
             'rowsPerPageItems',
             'pagination',
+            'offerDialogShowed',
+            'offerModel',
         ]),
 
         ...mapState([
@@ -108,7 +122,16 @@ export default {
         ...mapGetters('market', [
             'total',
             'hasMore',
-        ])
+        ]),
+
+        offerDialogShowed: {
+            get () {
+                return this.$store.state.market.offerDialogShowed
+            },
+            set (value) {
+                this.$store.commit('setOfferDialogShowed', value)
+            },
+        },
     },
     watch: {
         searchText (searchText){
@@ -124,6 +147,9 @@ export default {
 <style scoped lang="styl">
 primary_green_color = #e2ffbc
 green_text_color = #151911
+
+.offer-dialog
+    max-width: 400px
 
 .products-container
     padding-left: 0
