@@ -212,6 +212,9 @@ def upgrade():
         sa.Column('count_type', sa.Integer),
         sa.Column('priority', sa.Integer),
 
+        sa.Column('sellers_price', sa.Float(precision=2),),
+        sa.Column('in_stock', sa.Integer,),
+
         # indices
         sa.PrimaryKeyConstraint('id', name='offer_pkey',),
         sa.ForeignKeyConstraint(['entity_id'], [entities.c.id],

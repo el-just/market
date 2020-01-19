@@ -42,8 +42,6 @@
                 content-class="offer-dialog"
                 v-model="offerDialogShowed"
                 >
-            <offer-card
-                    :model="offerModel"></offer-card>
         </v-dialog>
     </v-container>
 </template>

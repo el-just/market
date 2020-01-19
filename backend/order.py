@@ -41,9 +41,16 @@ class Order:
         self.conn = conn
 
     async def create(self, cart, summary):
-        min_date = (date.today() + timedelta(days=1)).isoformat()
+        if datetime.now().hour >= 20:
+            min_date = (date.today() + timedelta(days=2)).isoformat()
+        else:
+            min_date = (date.today() + timedelta(days=1)).isoformat()
+
         if min_date > cart['deliveryDate']:
             return {"error": {"today": date.today().isoformat()}}
+
+        if float(summary['amount']) < 700: 
+            return {"error": {"amount": summary['amount']}}
 
         user = User(conn=self.conn)
         user_row = await user.read_or_create(login=cart['personPhone'])

@@ -268,15 +268,6 @@
                 </div>
             </template>
         </dual-field>
-        <v-layout
-                v-if="dateValidationError"
-                style="padding: 12px 0 0 12px"
-                >
-            <span class="validation-error-text">
-                * Похоже, что страница открыта уже давно, необходимо изменить
-                дату доставки
-            </span>
-        </v-layout>
 
         <h3 class="cart-title subheading">Оплата</h3>
         <dual-field
@@ -422,6 +413,23 @@
                 * Необходимо принять условия
             </span>
         </v-layout>
+        <v-layout
+                v-if="dateValidationError"
+                >
+            <span class="validation-error-text">
+                * Доставка на следующий день возможна только при заказе до 20:00
+            </span>
+        </v-layout>
+        <v-layout
+                :class="[amountValidationError ? 'validation-error-text' : '']"
+                v-if="amount < 700"
+                style="margin-bottom: 12px"
+                >
+            <div style="text-align: center; width: 100%"
+                    class="font-weight-medium">
+                Минимальная сумма заказа 700₽
+            </div>
+        </v-layout>
     </div>
 </v-container>
 </template>
@@ -480,6 +488,7 @@ export default {
 //          createdOrder: {id: 1, amount: 42.00, weight: 2.3, change_from:5000},
             createdOrder: null,
             dateValidationError: false,
+            amountValidationError: false,
         }
     },
 
@@ -536,6 +545,12 @@ export default {
             return this.$refs.cartView.validate()
         },
 
+        validateAmount () {
+            this.amountValidationError = this.amount < 700
+
+            return this.amount >= 700
+        },
+
         validate () {
             let results = [
                 this.validateField(this.$refs.personName),
@@ -545,6 +560,7 @@ export default {
                 this.validatePolicy(),
                 this.validateEmail(),
                 this.validateCartItems(),
+                this.validateAmount()
             ]
             let errorOnlyPolicies = undefined
 
@@ -600,8 +616,12 @@ export default {
                     request = true
 
                     if (result.error) {
-                        this.dateValidationError = true
-                        this.today = new Date(result.error.today)
+                        if (result.error.today) {
+                            this.dateValidationError = true
+                            this.today = new Date(result.error.today)
+                        } else {
+                            this.amountValidationError = true
+                        }
                     } else {
                         this.createdOrder = result.data
                         this.clearCartItems()
@@ -745,8 +765,16 @@ export default {
             let today = new Date ()
             let result = new Date (today)
 
-            result.setDate (result.getDate() + 1)
-            return result.toISOString().split('T')[0]
+            if (result.getHours() >= 20) {
+                result.setDate (result.getDate() + 2)
+            } else {
+                result.setDate (result.getDate() + 1)
+            }
+
+            let tzoffset = result.getTimezoneOffset() * 60000
+            let localISOTime = (new Date(result.getTime() - tzoffset))
+                .toISOString().slice(0, -1)
+            return localISOTime.split('T')[0]
         },
         deliveryDateFormatted () {
             if (this.deliveryDate) {
@@ -923,6 +951,12 @@ export default {
                                 true : false
             this.changeFrom = this.changeFrom ? null : this.changeFrom
         },
+
+        amount () {
+            if (this.amount >= 700) {
+               this.amountValidationError = false
+            }
+        }
     },
 }
 </script>
