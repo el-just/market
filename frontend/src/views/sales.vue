@@ -76,6 +76,11 @@
                                         Total price: {{ item.order.amount}}
                                     </div>
                                     <div>
+                                        Sellers price: {{
+                                            countSellersPrice(item.offers)
+                                            }}
+                                    </div>
+                                    <div>
                                         Change from: {{ item.order.change_from}}
                                     </div>
                                 </v-flex>
@@ -216,6 +221,14 @@ export default {
                 body: JSON.stringify({delivery_date: this.deliveryDate})
             })
         },
+
+        countSellersPrice (offers) {
+            offers.reduce ((result, model) => {
+                let price = model.count * model.price
+                result = result + price
+                return result
+            }, 0)
+        }
     },
 
     computed: {
