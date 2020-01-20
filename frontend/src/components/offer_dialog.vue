@@ -169,6 +169,11 @@
                     v-model="formatModel.offer.priority"
                     type="number"
                     >
+            <v-text-field
+                    label="Sellers price"
+                    v-model="formatModel.offer.sellers_price"
+                    type="number"
+                    >
             </v-text-field>
         </v-flex>
     </v-layout>

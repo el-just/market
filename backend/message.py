@@ -26,7 +26,7 @@ class Message:
 
         await self.conn.scalar(db.messages.insert().values(
            entity_id=entity_id,
-           email=email,
+           email='',
            message=message,
            status=0,
            ).returning(db.messages.c.id))

@@ -218,6 +218,7 @@ class Market:
                         "price": format["price"],
                         "count_type": format["count_type"],
                         "priority": format["priority"],
+                        "sellers_price": format["sellers_price"],
                     },
                     "entity": {
                         "id": format["entity_id"],
