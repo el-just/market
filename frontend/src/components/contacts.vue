@@ -1,24 +1,78 @@
 <template>
 <v-card
         class="contuct-us-dialog">
-    <v-container fill-height>
-        <v-layout column justify-space-between>
-            <v-flex xs1 sm1 lg1 xl1>
-                <v-layout row>
-                    <v-flex xs12 sm8 lg4 xl4>
-                        <v-text-field solo flat hide-details
-                                v-model="email"
-                                :class="['input-field', 'email',
-                                         ... [emailValid ? ''
-                                              : 'validation-error']]"
-                                browser-autocomplete="email"
-                                placeholder="Ваш e-mail"
-                                >
-                        </v-text-field>
+    <v-container>
+        <v-layout row wrap>
+            <v-flex xs12 sm12 md12 lg12 xl12
+                     class="headline">
+                 Рассказываем о новинках
+            </v-flex>
+            <v-flex xs12 sm6 md6 lg6 xl6 pa-3
+                    class="subheading telegram-button"
+                    @click="openInstagram"
+                    >
+                <v-layout>
+                    <icon-instagram 
+                            width="36"
+                            height="36"
+                            ></icon-instagram>
+                    <v-flex align-self-center pl-2>
+                        @veggies.market
                     </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex xs10 sm10 lg10 xl10>
+            <v-flex xs12 sm6 md6 lg6 xl6 pa-3
+                    class="subheading"
+                    >
+                <v-layout>
+                    <icon-telegram 
+                            width="36"
+                            height="36"
+                            ></icon-telegram>
+                    <v-flex align-self-center pl-2>
+                        @veggies_market
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap my-4>
+            <v-flex xs12 sm12 md12 lg12 xl12
+                     class="headline">
+                Помогаем с покупками
+            </v-flex>
+            <v-flex xs12 sm6 md6 lg6 xl6 pa-3
+                    class="subheading"
+                    >
+                <v-layout>
+                    <icon-telegram 
+                            width="36"
+                            height="36"
+                            ></icon-telegram>
+                    <v-flex align-self-center pl-2>
+                        @help_veggies_market
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+            <v-flex xs12 sm6 md6 lg6 xl6 pa-3
+                    class="subheading"
+                    >
+                <v-layout>
+                    <icon-mail
+                            width="36"
+                            height="36"
+                            ></icon-mail>
+                    <v-flex align-self-center pl-2>
+                        support@veggies.market
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+            <v-flex xs12 sm12 md12 lg12 xl12
+                     class="headline">
+                Принимаем предложения
+            </v-flex>
+            <v-flex xs12 sm12 md12 lg12 xl12 pa-3>
                 <v-textarea solo flat hide-details
                     v-model="message"
                     :class="['input-field', 'message-area',
@@ -29,8 +83,7 @@
                     >
                 </v-textarea>
             </v-flex>
-
-            <v-flex  xs1 sm1 lg1 xl1 text-xs-center>
+            <v-flex xs12 sm12 md12 lg12 xl12 text-xs-center>
                 <v-btn flat
                         :disabled="sent === false"
                         class="send-button"
@@ -47,10 +100,16 @@
 </template>
 <script>
 import utils from '../utils.js'
+import IconInstagram from './icons/icon_instagram.vue'
+import IconTelegram from './icons/icon_telegram.vue'
+import IconMail from './icons/icon_mail.vue'
 
 export default {
     name: 'Contacts',
     components: {
+        IconInstagram,
+        IconTelegram,
+        IconMail,
     },
 
     props: [],
@@ -75,18 +134,17 @@ export default {
             let timeout = false
             let request = false
 
-            this.emailValid = utils.emailRegexp.test(this.email)
             this.messageValid = this.message ?
                                 this.message.replace(/\s/g, '').length > 0 :
                                 false
 
 
-            if (this.emailValid && this.messageValid) {
+            if (this.messageValid) {
                 this.sent = false
                 this.sendButtonText = 'Отправляем ...'
 
                 setTimeout (() => {
-					timeout = true
+                    timeout = true
 
                     if (request) {
                         this.sent = true
@@ -95,31 +153,34 @@ export default {
                     }
                 }, 700)
 
-				fetch(`/api/message/create`, {
-					method: 'POST',
-					body: JSON.stringify({
-                        "email":this.email,
+                fetch(`/api/message/create`, {
+                    method: 'POST',
+                    body: JSON.stringify({
                         "message":this.message,
                     }),
-				})
-				.then(response => {
-					return response.json()
-				})
-				.then(result => {
-					request = true
-					if (timeout) {
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then(result => {
+                    request = true
+                    if (timeout) {
                         this.sent = true
                         this.message = null
                         this.sendButtonText = 'Отправить еще'
-					}
-				})
+                    }
+                })
                 .catch(exp => {
                     });
             }
         },
 
         focusMessage () {
-            this.$refs.messageArea.focus()
+            //this.$refs.messageArea.focus()
+        },
+
+        openInstagram () {
+            window.open('https://www.instagram.com/veggies.market/', '_blank');
         },
     },
 
@@ -147,7 +208,10 @@ color_error_focused = #ffa559
 
 .contuct-us-dialog
     background-color: #ffffff
-    height: 100%
+
+    .telegram-button:hover
+        cursor: pointer
+        text-decoration: underline
 
     .input-field
         border: 1px solid #d3f0fb

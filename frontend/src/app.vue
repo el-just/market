@@ -171,7 +171,7 @@
                     </a>
                     <v-dialog
                             v-model="contactDialogShowed"
-                            max-width="62%"
+                            min-width="62%"
                             :content-class="[fullScreenMenus
                                 ? '' : 'contact-dialog']"
                             :transition="fullScreenMenus
@@ -588,8 +588,6 @@ primary_yellow_color = #fffdbc
             margin-right: 12px
             cursor: default
 
-.contact-dialog
-    height: 62%
 </style>
 <style lang="styl">
 aside::-webkit-scrollbar

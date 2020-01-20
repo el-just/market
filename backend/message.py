@@ -1,4 +1,5 @@
 from datetime import date
+import time
 
 import db
 import os
@@ -16,9 +17,10 @@ class Message:
         self.conn = conn
 
 
-    async def create(self, email, message):
+    async def create(self, message):
+        num = str(time.time()).split('.')[0]
         entity_id = await self.conn.scalar(db.entities.insert().values(
-                name='Message from %s'%email,
+                name='Customers idea %s'%num,
                 date_created=date.today(),
                 object='message',).returning(db.entities.c.id))
 
@@ -29,7 +31,7 @@ class Message:
            status=0,
            ).returning(db.messages.c.id))
 
-        await self.send_email(message, 'Message from %s'%email)
+        await self.send_email(message, 'Customers idea %s'%num)
 
 
     async def send_email(self, text, subject):
