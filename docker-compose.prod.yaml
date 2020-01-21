@@ -19,6 +19,8 @@ services:
             MARKET_POSTGRES_PASSWORD: ${MARKET_POSTGRES_PASSWORD}
             MARKET_POSTGRES_DB: ${MARKET_POSTGRES_DB}
 
+            MARKET_REDIS_PASSWORD: ${MARKET_REDIS_PASSWORD}
+
             MARKET_TELEGRAM_KEY: ${MARKET_TELEGRAM_KEY}
             MARKET_ADDRESS_SUGGEST_KEY: ${MARKET_ADDRESS_SUGGEST_KEY}
 
@@ -48,6 +50,9 @@ services:
         networks:
             - veggies-net
     redis:
+        command:
+            - 'redis-server'
+            - '--requirepass ${MARKET_REDIS_PASSWORD}'
         image: "redis:5.0.6-alpine"
         ports:
             - "6379:6379"

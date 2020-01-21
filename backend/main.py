@@ -15,7 +15,8 @@ from handlers import Web
 
 
 async def init(loop):
-    redis_pool = await create_pool(('redis', 6379))
+    redis_pass = os.environ['MARKET_REDIS_PASSWORD']
+    redis_pool = await create_pool(('redis', 6379), password=redis_pass)
     db_engine = None
     try:
         db_engine = await create_engine(
