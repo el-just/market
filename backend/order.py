@@ -41,8 +41,8 @@ class Order:
         self.conn = conn
 
     async def create(self, cart, summary):
-        if datetime.now().hour >= 20:
-            min_date = (date.today() + timedelta(days=2)).isoformat()
+        if datetime.now().hour < 5:
+            min_date = date.today().isoformat()
         else:
             min_date = (date.today() + timedelta(days=1)).isoformat()
 

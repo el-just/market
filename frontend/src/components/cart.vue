@@ -417,7 +417,7 @@
                 v-if="dateValidationError"
                 >
             <span class="validation-error-text">
-                * Доставка на следующий день возможна только при заказе до 20:00
+                * Доставка на текущий день возможна только до 5 утра
             </span>
         </v-layout>
         <v-layout
@@ -765,9 +765,7 @@ export default {
             let today = new Date ()
             let result = new Date (today)
 
-            if (result.getHours() >= 20) {
-                result.setDate (result.getDate() + 2)
-            } else {
+            if (result.getHours() > 5) {
                 result.setDate (result.getDate() + 1)
             }
 
