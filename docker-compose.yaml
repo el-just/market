@@ -31,6 +31,8 @@ services:
             - redis
         volumes:
             - ./backend:/usr/src/market
+        networks:
+            - veggies-net
     frontend:
         image: "cr.yandex/crpn29pj78m9nr559c1h/market_frontend_dev:1.0"
         volumes:
@@ -39,10 +41,14 @@ services:
             - "5000:5000"
         depends_on:
             - backend
+        networks:
+            - veggies-net
     redis:
         image: "redis:5.0.6-alpine"
         ports:
             - "6379:6379"
+        networks:
+            - veggies-net
     postgresql:
         image: "postgres:12.0-alpine"
         environment:
@@ -52,6 +58,11 @@ services:
             - "5432:5432"
         volumes:
             - db:/var/lib/postgresql/data
+        networks:
+            - veggies-net
 
 volumes:
     db:
+
+networks:
+  veggies-net:
