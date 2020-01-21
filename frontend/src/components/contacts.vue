@@ -2,6 +2,13 @@
 <v-card
         class="contuct-us-dialog">
     <v-container>
+        <v-btn flat icon
+                color="rgba(0,0,0,0.72)"
+                style="position: absolute; top: 8px; right: 8px"
+                @click="closeWindow"
+                >
+            <v-icon large>close</v-icon>
+        </v-btn>
         <v-layout row wrap>
             <v-flex xs12 sm12 md12 lg12 xl12
                      class="headline">
@@ -181,6 +188,10 @@ export default {
 
         openInstagram () {
             window.open('https://www.instagram.com/veggies.market/', '_blank');
+        },
+
+        closeWindow () {
+            this.$emit ('dialogClosed')
         },
     },
 

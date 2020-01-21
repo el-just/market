@@ -180,13 +180,9 @@
                             :fullscreen="fullScreenMenus"
                             >
                         <contacts ref="contacts"
-                                v-touch="{
-                                    left: ()=>contactDialogShowed=false,
-                                    right: ()=>contactDialogShowed=false,
-                                    up: ()=>contactDialogShowed=false,
-                                    down: ()=>contactDialogShowed=false,
-                                    }"
-                                ></contacts>
+                                @dialogClosed="closeContacts"
+                                >
+                        </contacts>
                     </v-dialog>
                     <v-spacer></v-spacer>
                     <span>© Veggies</span>
@@ -330,6 +326,10 @@ export default {
             setTimeout(()=>{
                 this.$refs.contacts.focusMessage()
             }, 0)
+        },
+
+        closeContacts () {
+            this.contactDialogShowed = false
         },
 
         toggleSearch (target) {
