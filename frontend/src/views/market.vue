@@ -61,9 +61,9 @@
                             :class="infoClasses"
                             >
                         <v-layout justify-center>
-                            <span>
+                            <v-flex>
                                 Не пропусти сезон!
-                            </span>
+                            </v-flex>
                         </v-layout>
                         <v-layout justify-start
                                 class="carousel-info_second-line"
