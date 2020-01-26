@@ -192,7 +192,7 @@ class Email:
     '''
 
     @staticmethod
-    def generate_items(cart):
+    def generate_items(cart, summary):
         items_templates = []
         template = '''
             <tr>
@@ -214,6 +214,28 @@ class Email:
                     price=item["offerModel"]["offer"]["price"] \
                             * item["count"],
                     ))
+
+        items_templates.append('''
+                <tr>
+                    <td>
+                        Выбор
+                    </td>
+                    <td align="right">
+                        %s₽
+                    </td>
+                </tr>
+                '''%summary['choice'])
+
+        items_templates.append('''
+                <tr>
+                    <td>
+                        Доставка
+                    </td>
+                    <td align="right">
+                        %s₽
+                    </td>
+                </tr>
+                '''%summary['delivery_price'])
 
         return '\n'.join(items_templates)
 
@@ -262,7 +284,7 @@ class Email:
                 )
 
         delivery_items = Email.delivery_items_template.format(
-                cart_items=Email.generate_items(cart),
+                cart_items=Email.generate_items(cart, summary),
                 items_count=Email.positions_text(summary['count']),
                 total_weight=summary['weight'],
                 total_price=summary['amount'],

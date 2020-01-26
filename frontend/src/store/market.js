@@ -17,6 +17,11 @@ export default {
         ],
         items: [],
         fullItems: [],
+        carousel: [
+            'https://storage.yandexcloud.net/veggies/market.jpg',
+            'https://storage.yandexcloud.net/veggies/mango.jpg',
+            'https://storage.yandexcloud.net/veggies/persimmon.jpg',
+        ],
 
         rowsPerPageItems: [12],
 

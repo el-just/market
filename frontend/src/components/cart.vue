@@ -420,16 +420,6 @@
                 * Доставка на текущий день возможна только до 5 утра
             </span>
         </v-layout>
-        <v-layout
-                :class="[amountValidationError ? 'validation-error-text' : '']"
-                v-if="amount < 700"
-                style="margin-bottom: 12px"
-                >
-            <div style="text-align: center; width: 100%"
-                    class="font-weight-medium">
-                Минимальная сумма заказа 700₽
-            </div>
-        </v-layout>
     </div>
 </v-container>
 </template>
@@ -545,12 +535,6 @@ export default {
             return this.$refs.cartView.validate()
         },
 
-        validateAmount () {
-            this.amountValidationError = this.amount < 700
-
-            return this.amount >= 700
-        },
-
         validate () {
             let results = [
                 this.validateField(this.$refs.personName),
@@ -560,7 +544,6 @@ export default {
                 this.validatePolicy(),
                 this.validateEmail(),
                 this.validateCartItems(),
-                this.validateAmount()
             ]
             let errorOnlyPolicies = undefined
 
@@ -603,9 +586,11 @@ export default {
                     body: JSON.stringify({
                         "cart":this.$store.state.cart,
                         "summary":{
-                            "amount":this.amount,
+                            "amount":this.total,
                             "weight":this.weight,
                             "count":this.items.length,
+                            "choice":this.choice,
+                            "delivery_price":this.deliveryPrice,
                         },
                     }),
                 })
@@ -619,8 +604,6 @@ export default {
                         if (result.error.today) {
                             this.dateValidationError = true
                             this.today = new Date(result.error.today)
-                        } else {
-                            this.amountValidationError = true
                         }
                     } else {
                         this.createdOrder = result.data
@@ -725,6 +708,9 @@ export default {
             'count',
             'weight',
             'amount',
+            'total',
+            'choice',
+            'deliveryPrice',
         ]),
 
         isMobile () {

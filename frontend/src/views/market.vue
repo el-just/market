@@ -2,6 +2,105 @@
     <v-container fluid
             class="products-container"
             >
+        <v-layout class="market-carousel-container">
+            <v-carousel light :height="carouselHeight"
+                    hide-delimiters
+                    :cycle="false"
+                    >
+                <v-carousel-item
+                        reverse-transition="fade"
+                        transition="fade"
+                        key="0"
+                        :src="carousel[0]"
+                        >
+                    <v-layout justify-start>
+                            <carousel-info
+                                    :class="infoClasses"
+                                    >
+                                <v-layout justify-start>
+                                    <span>
+                                        Отбираем лучшее
+                                    </span>
+                                </v-layout>
+                                <v-layout justify-end>
+                                    <span>
+                                        на рынках города
+                                    </span>
+                                </v-layout>
+                                <v-layout justify-end>
+                                    <v-btn flat
+                                            color="rgb(251, 114, 0)"
+                                            @click="aboutDialogShowed = true"
+                                            >
+                                        <icon-question
+                                                :width="
+                                                    $vuetify.breakpoint
+                                                        .width < 350
+                                                    ? 18 : 23"
+                                                :height="
+                                                    $vuetify.breakpoint
+                                                        .width < 350
+                                                    ? 18 : 23"
+                                                style="margin-right: 4px"
+                                                fill="rgb(251, 114, 0)"
+                                                >
+                                        </icon-question>
+                                        <span>подробнее</span>
+                                    </v-btn>
+                                </v-layout>
+                            </carousel-info>
+                    </v-layout>
+                </v-carousel-item>
+                <v-carousel-item
+                        reverse-transition="fade"
+                        transition="fade"
+                        key="1"
+                        :src="carousel[1]"
+                        >
+                    <carousel-info
+                            :class="infoClasses"
+                            >
+                        <v-layout justify-center>
+                            <span>
+                                Не пропусти сезон!
+                            </span>
+                        </v-layout>
+                        <v-layout justify-start
+                                class="carousel-info_second-line"
+                                >
+                            <span>Манго:</span>
+                            <span style="color: rgb(251, 114, 0);">
+                                50 - 120₽</span>
+                            <span> за шт</span>
+                        </v-layout>
+                    </carousel-info>
+                </v-carousel-item>
+                <v-carousel-item
+                        reverse-transition="fade"
+                        transition="fade"
+                        key="2"
+                        :src="carousel[2]"
+                        >
+                    <carousel-info
+                            :class="infoClasses"
+                            >
+                        <v-layout justify-center>
+                            <v-flex>
+                                Не пропусти сезон!
+                            </v-flex>
+                        </v-layout>
+                        <v-layout justify-start
+                                class="carousel-info_second-line"
+                                >
+                            <span>Хурма:</span>
+                            <span style="color: rgb(251, 114, 0);">
+                                35₽</span>
+                            <span> за шт</span>
+                        </v-layout>
+                    </carousel-info>
+                </v-carousel-item>
+            </v-carousel>
+        </v-layout>
         <v-layout wrap justify-space-around
                 class="categories-container"
                 >
@@ -43,6 +142,19 @@
                 v-model="offerDialogShowed"
                 >
         </v-dialog>
+        <v-dialog
+                v-model="aboutDialogShowed"
+                min-width="62%"
+                :transition="$vuetify.breakpoint.width < 500
+                    ? 'dialog-bottom-transition'
+                    : null"
+                :fullscreen="$vuetify.breakpoint.width < 500"
+                >
+            <about
+                    @dialogClosed="aboutDialogShowed = false"
+                    >
+            </about>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -50,6 +162,9 @@
 import _ from 'lodash'
 
 import OfferCard from '../components/offer_card.vue'
+import About from '../components/about.vue'
+import CarouselInfo from '../components/carousel_info.vue'
+import IconQuestion from '../components/icons/icon_question.vue'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 
@@ -57,11 +172,15 @@ export default {
     name: 'Market',
     components: {
         OfferCard,
+        IconQuestion,
+        About,
+        CarouselInfo,
     },
 
     props: [],
     data () {
         return {
+            aboutDialogShowed: false,
         }
     },
 
@@ -110,6 +229,7 @@ export default {
             'pagination',
             'offerDialogShowed',
             'offerModel',
+            'carousel',
         ]),
 
         ...mapState([
@@ -130,6 +250,25 @@ export default {
                 this.$store.commit('setOfferDialogShowed', value)
             },
         },
+
+        carouselHeight () {
+            if (this.$vuetify.breakpoint.width < 350) {
+                return 250
+            } else if (this.$vuetify.breakpoint.width < 500) {
+                return 300
+            }
+
+            return 400
+        },
+
+        infoClasses () {
+            if (this.$vuetify.breakpoint.width < 350) {
+                return ['carousel-info-tiny', 'carousel-info-container']
+            } else if (this.$vuetify.breakpoint.width < 500) {
+                return ['headline', 'carousel-info-medium', 'carousel-info-container']
+            }
+            return ['display-1', 'carousel-info-container']
+        },
     },
     watch: {
         searchText (searchText){
@@ -144,7 +283,60 @@ export default {
 </script>
 <style scoped lang="styl">
 primary_green_color = #e2ffbc
+primary_yellow_color = #fffdbc
 green_text_color = #151911
+
+.market-carousel-container
+    & >>> .v-carousel__controls
+        background: primary_green_color
+        opacity: 0.6
+
+    .market-carousel-text-container
+        background: primary_yellow_color
+        width: 400px
+        height: 141px;
+        opacity: 0.75
+        padding: 24px
+
+    .carousel-info-container
+        max-width: 400px;
+        margin: 16px 16px 0 16px
+
+        button
+            margin: 0px
+            padding: 0
+
+        .carousel-info_second-line
+            font-size: 26px
+            padding-left: 24px
+
+        &.carousel-info-tiny
+            max-width: 200px;
+            font-size: 18px
+            padding: 8px
+            margin: 8px 8px 0 8px
+
+            button
+                font-size: 12px
+                height: 26px
+                padding: 0 4px
+
+            .carousel-info_second-line
+                font-size: 16px !important
+                padding-left: 14px
+
+        &.carousel-info-medium
+            max-width: 300px;
+            padding: 10px
+
+            margin: 10px 10px 0 10px
+
+            button
+                padding: 0 8px
+
+            .carousel-info_second-line
+                font-size: 20px !important
+                padding-left: 18px
 
 .offer-dialog
     max-width: 400px

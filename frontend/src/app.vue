@@ -39,37 +39,33 @@
                ]"
             >
         <v-layout fill-height>
-            <v-flex xs3 sm3 lg3 xl3
+            <v-flex xs1 sm1 lg1 xl1
                     class="market-info font-weight-medium"
                     align-self-center
                     v-if="marketInfoWidth !== 0"
                     >
-                    <div style="float:left">
+                    <div style="float:left;"
+                            :class="[marketInfoWidth
+                                !== this.toolbarConfig.marketInfoShortWidth
+                                ? 'market-info_common-width' : '']"
+                            >
                         <router-link to="/"
                                 style="text-decoration: none; color: black;
                                        margin-left: 8px;
                                        font-size: 26px;"
-                                >Veggies</router-link>
-                        <div v-if="marketInfoWidth ===
-                                       this.toolbarConfig.marketInfoShortWidth"
+                                >
+                            Veggies
+                        </router-link>
+                        <div
                                 style="margin: -8px 3px 4px">
                             Санкт-Петербург
                         </div>
-                    </div>
-                    <div v-if="marketInfoWidth !==
-                                   this.toolbarConfig.marketInfoShortWidth"
-                            style="font-size: 14px; white-space: normal;
-                                width: 228px; color: #9e9e9e;
-                                padding-left: 12px; padding-right: 23px;
-                                line-height: 20px;
-                                margin-left: 110px">
-                        Доставка овощей и фруктов в Санкт-Петербурге
                     </div>
             </v-flex>
             <v-flex
                     :class="[
                         marketInfoWidth === 0 ? 'xs12 sm12 lg12 xl12'
-                            : 'xs9 sm9 lg9 xl9']">
+                            : 'xs11 sm11 lg11 xl11']">
                 <v-badge right overlap color="black"
                         style="float: right"
                         :class="[
@@ -92,8 +88,14 @@
                 </v-badge>
                 <div style="float: right; text-align: center; width: 72px;
                             position: relative; height: 100%">
-                    <login-button
-                        ></login-button>
+                    <v-btn flat icon
+                            @click="openContacts"
+                            >
+                        <icon-info
+                                width="26"
+                                height="26"
+                                ></icon-info>
+                    </v-btn>
                 </div>
                 <v-text-field
                         class="search-field"
@@ -170,17 +172,18 @@
                         Контакты
                     </a>
                     <v-dialog
-                            v-model="contactDialogShowed"
+                            v-model="dialogShowed"
                             min-width="62%"
-                            :content-class="[fullScreenMenus
+                            :content-class="[$vuetify.breakpoint.width < 500
                                 ? '' : 'contact-dialog']"
-                            :transition="fullScreenMenus
+                            :transition="$vuetify.breakpoint.width < 500
                                 ? 'dialog-bottom-transition'
                                 : null"
-                            :fullscreen="fullScreenMenus"
+                            :fullscreen="$vuetify.breakpoint.width < 500"
                             >
                         <contacts ref="contacts"
-                                @dialogClosed="closeContacts"
+                                v-if="dialogName === 'contacts'"
+                                @dialogClosed="closeDialog"
                                 >
                         </contacts>
                     </v-dialog>
@@ -204,6 +207,7 @@ import Vue from 'vue'
 
 import Cart from './components/cart.vue'
 import IconCart from './components/icons/icon_cart.vue'
+import IconInfo from './components/icons/icon_info.vue'
 import IconSearch from './components/icons/icon_search.vue'
 import LoginButton from './components/login_button.vue'
 import Contacts from './components/contacts.vue'
@@ -216,6 +220,7 @@ export default {
     components: {
         Cart,
         IconCart,
+        IconInfo,
         IconSearch,
         LoginButton,
         Contacts,
@@ -228,12 +233,13 @@ export default {
             searchTextLink: null,
 
             showUp: false,
-            contactDialogShowed: false,
+            dialogShowed: false,
+            dialogName: undefined,
 
             forceSearch: false,
             toolbarConfig: {
                 marketInfoShortWidth: 138,
-                marketInfoFullWidth: 333,
+                marketInfoFullWidth: 154,
                 searchMinWidth: 135,
             }
         }
@@ -321,15 +327,18 @@ export default {
         },
 
         openContacts () {
-            this.contactDialogShowed = true
             this.sendButtonText = 'Send'
-            setTimeout(()=>{
-                this.$refs.contacts.focusMessage()
-            }, 0)
+            this.openDialog('contacts')
         },
 
-        closeContacts () {
-            this.contactDialogShowed = false
+        openDialog (dialog) {
+            this.dialogName = dialog
+            this.dialogShowed = true
+        },
+
+        closeDialog () {
+            this.dialogShowed = false
+            this.dialogName = null
         },
 
         toggleSearch (target) {
@@ -404,14 +413,6 @@ export default {
             return shortMarketInfo
                    ? this.toolbarConfig.marketInfoShortWidth
                    : this.toolbarConfig.marketInfoFullWidth
-        },
-
-        fullScreenMenus () {
-            return (
-                this.marketInfoWidth === 0 || ( this.marketInfoWidth ===
-                    this.toolbarConfig.marketInfoShortWidth &&
-                        !this.forceSearch )
-            )
         },
 
         serviceEnabled () {
@@ -501,10 +502,14 @@ primary_yellow_color = #fffdbc
 
     &.short-market-info
         .market-info
-            min-width: 138px
+            min-width: 154px
 
     .market-info
-        min-width: 333px
+        min-width: 138px
+
+        .market-info_common-width
+            margin-left: 6px
+
 
     &.search-hidden
         .search-field

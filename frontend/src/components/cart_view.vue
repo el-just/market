@@ -16,7 +16,7 @@
                 {{ item.offerModel.entity.declensions ?
                     new countForms(item.offerModel.entity.declensions)
                     .setCount(item.count) : item.offerModel.entity.name
-                }} 
+                }}
             </v-flex>
             <v-flex xs4 sm4 md4 lg4 xl4
                     class="cart-item-head__amount"
@@ -50,6 +50,36 @@
                 </v-layout>
             </v-flex>
         </v-layout>
+        <v-layout
+                style="padding: 0 12px; margin-top: 8px"
+                >
+            <v-flex xs8 sm8 md8 lg8 xl8 
+                    class="cart-item-head__name font-weight-medium"
+                    >
+                <span>Выбор</span>
+            </v-flex>
+            <v-flex xs4 sm4 md4 lg4 xl4
+                    class="cart-item-head__amount"
+                    style="text-align: right;"
+                    >
+                {{choice}}₽
+            </v-flex>
+        </v-layout>
+        <v-layout
+                style="padding: 0 12px 8px 12px"
+                >
+            <v-flex xs8 sm8 md8 lg8 xl8 
+                    class="cart-item-head__name font-weight-medium"
+                    >
+                <span>Доставка</span>
+            </v-flex>
+            <v-flex xs4 sm4 md4 lg4 xl4
+                    class="cart-item-head__amount"
+                    style="text-align: right;"
+                    >
+                    {{deliveryPrice}}₽
+            </v-flex>
+        </v-layout>
         <v-layout class="cart-summary font-weight-regular">
             <v-flex>
                 {{ items.length }} {{
@@ -64,7 +94,7 @@
             </v-flex>
             <v-flex align-self-end
                     class="cart-summary__amount">
-                {{ amount }}₽
+                {{ total }}₽
             </v-flex>
         </v-layout>
     </div>
@@ -158,6 +188,9 @@ export default {
             'count',
             'weight',
             'amount',
+            'total',
+            'choice',
+            'deliveryPrice',
         ]),
 
         ...mapState('cart/view', [
@@ -193,7 +226,6 @@ error_color_focused = #ffa559
     border: 1px solid border_color
 
     .cart-item
-        margin-bottom: 8px
         padding: 0 12px
 
         .cart-item-head__name

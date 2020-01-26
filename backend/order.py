@@ -49,9 +49,6 @@ class Order:
         if min_date > cart['deliveryDate']:
             return {"error": {"today": date.today().isoformat()}}
 
-        if float(summary['amount']) < 700: 
-            return {"error": {"amount": summary['amount']}}
-
         user = User(conn=self.conn)
         user_row = await user.read_or_create(login=cart['personPhone'])
 

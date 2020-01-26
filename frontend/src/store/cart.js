@@ -168,5 +168,19 @@ export default {
                 return result
             }, 0)
         },
+
+        total: (state, getters) => {
+            return Big(getters.amount).plus(getters.choice)
+                    .plus(getters.deliveryPrice)
+        },
+
+        choice: (state, getters) => {
+            return getters.amount <= 2000 ? 200
+                    : Big((getters.amount / 1000) | 0).times(100)
+        },
+
+        deliveryPrice: state => {
+            return 400
+        },
     }
 }
