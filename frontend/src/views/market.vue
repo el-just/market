@@ -68,9 +68,9 @@
                         <v-layout justify-start
                                 class="carousel-info_second-line"
                                 >
-                            <span>Манго:</span>
+                            <span>Манго:&nbsp;</span>
                             <span style="color: rgb(251, 114, 0);">
-                                50 - 120₽</span>
+                                50 - 120₽&nbsp;</span>
                             <span> за шт</span>
                         </v-layout>
                     </carousel-info>
@@ -92,9 +92,10 @@
                         <v-layout justify-start
                                 class="carousel-info_second-line"
                                 >
-                            <span>Хурма:</span>
+                            <span>Хурма:&nbsp;</span>
                             <span style="color: rgb(251, 114, 0);">
-                                35₽</span>
+                                35₽&nbsp;
+                            </span>
                             <span> за шт</span>
                         </v-layout>
                     </carousel-info>
