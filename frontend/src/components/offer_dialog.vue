@@ -42,6 +42,12 @@
                 v-model="offerModel.entity.declensions[2]"
                 >
             </v-text-field>
+            <v-text-field
+                    label="Priority"
+                    v-model="offerModel.offer.priority"
+                    type="number"
+                    >
+            </v-text-field>
         </v-flex>
         <v-flex xs6 sm6 md6 lg6 xl6 text-xs-center>
             <h1 class="headline">Products</h1>

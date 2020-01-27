@@ -164,7 +164,8 @@ class Market:
                 ) as formats
                 %s
             from parent_offers
-            order by %s parent_offers.name
+            order by
+                %s parent_offers.priority nulls last, parent_offers.name
         '''%(labels_query, labels_sort_query, search_query, offer_query,
                 labels_sort_field, labels_sort)
 
@@ -176,6 +177,7 @@ class Market:
                 "id": row["id"],
                 "entity_id": row["entity_id"],
                 "name": row["name"],
+                "priority": row["priority"],
                 },
             "entity": {
                 "id": row["entity_id"],
