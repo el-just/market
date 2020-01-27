@@ -7,7 +7,7 @@
             class="schema-org"
             itemscope itemtype="http://schema.org/GroceryStore"
             >
-        <meta itemprop="name" content="Veggies | Санкт-Петербург"/>
+        <meta itemprop="name" content="Veggies | Овощи Фрукты Зелень"/>
         <div
                 itemprop="address"
                 itemscope itemtype="http://schema.org/PostalAddress">

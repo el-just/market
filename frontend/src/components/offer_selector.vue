@@ -325,6 +325,7 @@ green_text_color = #151911
 
     .selector-button__dropdown-icon
         font-size: 18px
+        width: 12px
 
     .selector-button__weight
         font-size: 12px !important

@@ -304,7 +304,7 @@ green_text_color = #151911
 
         button
             margin: 0px
-            padding: 0
+            padding: 0 8px
 
         .carousel-info_second-line
             font-size: 26px
