@@ -179,8 +179,8 @@ export default {
                     : Big((getters.amount / 1000) | 0).times(100)
         },
 
-        deliveryPrice: state => {
-            return 400
+        deliveryPrice: (state, getters) => {
+            return getters.weight < 5 ? 300 : 400
         },
     }
 }
