@@ -10,6 +10,7 @@
             <v-btn flat icon
                     class="user-button"
                     v-on="on"
+                    v-show="false"
                     >
                 <icon-user
                        width="26"

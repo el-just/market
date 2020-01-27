@@ -96,6 +96,8 @@
                                 height="26"
                                 ></icon-info>
                     </v-btn>
+                    <login-button>
+                    </login-button>
                 </div>
                 <v-text-field
                         class="search-field"
