@@ -175,6 +175,7 @@ export default {
         },
 
         choice: (state, getters) => {
+            return 0
             return getters.amount <= 2000 ? 200
                     : Big((getters.amount / 1000) | 0).times(100)
         },

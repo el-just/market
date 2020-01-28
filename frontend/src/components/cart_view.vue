@@ -51,21 +51,6 @@
             </v-flex>
         </v-layout>
         <v-layout
-                style="padding: 0 12px; margin-top: 8px"
-                >
-            <v-flex xs8 sm8 md8 lg8 xl8 
-                    class="cart-item-head__name font-weight-medium"
-                    >
-                <span>Выбор</span>
-            </v-flex>
-            <v-flex xs4 sm4 md4 lg4 xl4
-                    class="cart-item-head__amount"
-                    style="text-align: right;"
-                    >
-                {{choice}}₽
-            </v-flex>
-        </v-layout>
-        <v-layout
                 style="padding: 0 12px 8px 12px"
                 >
             <v-flex xs8 sm8 md8 lg8 xl8 

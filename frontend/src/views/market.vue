@@ -145,7 +145,7 @@
         </v-dialog>
         <v-dialog
                 v-model="aboutDialogShowed"
-                min-width="62%"
+                max-width="500"
                 :transition="$vuetify.breakpoint.width < 500
                     ? 'dialog-bottom-transition'
                     : null"

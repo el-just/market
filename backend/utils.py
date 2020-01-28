@@ -218,17 +218,6 @@ class Email:
         items_templates.append('''
                 <tr>
                     <td>
-                        Выбор
-                    </td>
-                    <td align="right">
-                        %s₽
-                    </td>
-                </tr>
-                '''%summary['choice'])
-
-        items_templates.append('''
-                <tr>
-                    <td>
                         Доставка
                     </td>
                     <td align="right">
