@@ -10,50 +10,6 @@
                 <v-carousel-item
                         reverse-transition="fade"
                         transition="fade"
-                        key="0"
-                        :src="carousel[0]"
-                        >
-                    <v-layout justify-start>
-                            <carousel-info
-                                    :class="infoClasses"
-                                    >
-                                <v-layout justify-start>
-                                    <span>
-                                        Отбираем лучшее
-                                    </span>
-                                </v-layout>
-                                <v-layout justify-end>
-                                    <span>
-                                        на рынках города
-                                    </span>
-                                </v-layout>
-                                <v-layout justify-end>
-                                    <v-btn flat
-                                            color="rgb(251, 114, 0)"
-                                            @click="aboutDialogShowed = true"
-                                            >
-                                        <icon-question
-                                                :width="
-                                                    $vuetify.breakpoint
-                                                        .width < 350
-                                                    ? 18 : 23"
-                                                :height="
-                                                    $vuetify.breakpoint
-                                                        .width < 350
-                                                    ? 18 : 23"
-                                                style="margin-right: 4px"
-                                                fill="rgb(251, 114, 0)"
-                                                >
-                                        </icon-question>
-                                        <span>подробнее</span>
-                                    </v-btn>
-                                </v-layout>
-                            </carousel-info>
-                    </v-layout>
-                </v-carousel-item>
-                <v-carousel-item
-                        reverse-transition="fade"
-                        transition="fade"
                         key="1"
                         :src="carousel[1]"
                         >
