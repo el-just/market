@@ -70,7 +70,7 @@
                                 >
                             <span>Манго:&nbsp;</span>
                             <span style="color: rgb(251, 114, 0);">
-                                50 - 120₽&nbsp;</span>
+                                57 - 138₽&nbsp;</span>
                             <span> за шт</span>
                         </v-layout>
                     </carousel-info>
@@ -94,7 +94,7 @@
                                 >
                             <span>Хурма:&nbsp;</span>
                             <span style="color: rgb(251, 114, 0);">
-                                35₽&nbsp;
+                                69₽&nbsp;
                             </span>
                             <span> за шт</span>
                         </v-layout>
