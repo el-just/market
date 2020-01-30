@@ -181,6 +181,7 @@ export default {
         },
 
         deliveryPrice: (state, getters) => {
+            return 300
             return getters.weight < 5 ? 300 : 400
         },
     }
