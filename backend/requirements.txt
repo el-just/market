@@ -6,7 +6,7 @@ aioredis==1.3.0
 aiofile==1.5.2
 SQLAlchemy==1.3.0b3
 passlib==1.7.1
-PyYAML==5.1.2
+PyYAML==5.4
 aiosmtplib==1.1.0
 alembic==1.0.7
 boto3==1.10.6
